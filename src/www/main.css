@@ -1,0 +1,14 @@
+html, body, #main {
+    margin: 0;
+    height: 100%;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-size: 13px;
+    line-height: 20px;
+    padding: 0;
+}

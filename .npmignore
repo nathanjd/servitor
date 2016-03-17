@@ -32,9 +32,15 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-# Compiled
-build/
-lib/
+# Pre-compiled Source
+src/
+
+# Specification
+spect/
+test/
+
+# Project Configuration
+*.sublime-project
 
 # Project Workspace
 *.sublime-workspace
