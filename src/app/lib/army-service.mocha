@@ -1,0 +1,43 @@
+// Expectations
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import { expect } from 'chai'
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+
+// Utilities
+// import _ from 'lodash';
+
+// The module to test.
+import ArmyService from './army-service';
+
+chai.use(chaiAsPromised);
+chai.use(sinonChai);
+
+describe('ArmyService', () => {
+    describe('.getAll()', () => {
+        it('should return an Array', () => {
+            let armies = ArmyService.getAll();
+
+            expect(armies).to.be.an.instanceof(Array);
+        });
+
+        it('should return a new Array each invocation', () => {
+            let armies = ArmyService.getAll(),
+                otherArmies = ArmyService.getAll();
+
+            expect(armies).to.not.equal(otherArmies);
+        });
+    });
+
+    describe('parse(armyText)', () => {
+        it('should preserve the original army\'s name', () => {
+            var army = new Army(testProps),
+                previousName = army.name;
+
+            army.parse(oneUnitArmyText);
+
+            expect(previousName).to.equal(army.name);
+        });
+    });
+});

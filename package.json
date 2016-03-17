@@ -7,9 +7,10 @@
     "url": "https://github.com/callemall/material-ui.git"
   },
   "scripts": {
+    "build": "gulp build",
+    "prepublish": "gulp build",
     "start": "gulp",
-    "test": "mocha",
-    "prepublish": "gulp build"
+    "test": "mocha"
   },
   "devDependencies": {
     "babel-register": "^6.4.3",

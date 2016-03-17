@@ -1,0 +1,96 @@
+// Expectations
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import { expect } from 'chai'
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
+
+// Utilities
+// import _ from 'lodash';
+
+// The module to test.
+import Army from './army';
+
+// Test Data
+import testProps from '../config/test-army-text';
+
+import {
+    oneUnit as oneUnitArmyText,
+    oneUnitWithOneEquipment as oneUnitWithOneEquipmentText,
+    oneUnitWithEquipment as oneUnitWithEquipmentText
+} from '../config/test-army-text';
+
+chai.use(chaiAsPromised);
+chai.use(sinonChai);
+
+describe('Army', () => {
+    describe('.parseArmyText', () => {
+        it('should return a new army', () => {
+            let army = Army.parseArmyText();
+
+            expect(army).to.be.an.instanceof(Army);
+        });
+
+        it('should return the same army that was passed', () => {
+            let army = new Army(),
+                parsedArmy = Army.parseArmyText('', army);
+
+            expect(parsedArmy).to.equal(army);
+        });
+
+        it('should update the passed army', () => {
+            let army = new Army(testProps),
+                parsedArmy = Army.parseArmyText('', army);
+
+            expect(parsedArmy).to.deep.equal(army);
+        });
+
+        it('should parse a unit with no equipment', () => {
+            let army = new Army(testProps),
+                parsedArmy = Army.parseArmyText(oneUnitArmyText, army);
+
+            // console.log('==> No Equipment:', oneUnitArmyText, parsedArmy);
+
+            expect(parsedArmy).to.deep.equal(army);
+        });
+
+        it('should parse a unit with one equipment', () => {
+            let army = new Army(testProps),
+                parsedArmy = Army.parseArmyText(oneUnitWithOneEquipmentText, army);
+
+            // console.log('==> One Equipment:', parsedArmy);
+
+            expect(parsedArmy).to.deep.equal(army);
+        });
+
+        it('should parse a unit with multiple equipment', () => {
+            let army = new Army(testProps),
+                parsedArmy = Army.parseArmyText(oneUnitWithEquipmentText, army);
+
+            // console.log('==> Multiple Equipment:', parsedArmy);
+
+            expect(parsedArmy).to.deep.equal(army);
+        });
+    });
+
+    describe('::constructor(props)', () => {
+        it('should return an Army with the passed props', () => {
+            var army = new Army(testProps);
+
+            for (let key in testProps) {
+                expect(army[key]).to.equal(testProps[key]);
+            }
+        });
+    });
+
+    describe('parse(armyText)', () => {
+        it('should preserve the original army\'s name', () => {
+            var army = new Army(testProps),
+                previousName = army.name;
+
+            army.parse(oneUnitArmyText);
+
+            expect(previousName).to.equal(army.name);
+        });
+    });
+});
